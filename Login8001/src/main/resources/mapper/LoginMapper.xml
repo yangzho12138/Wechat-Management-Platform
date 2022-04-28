@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="login.mapper.LoginMapper">
+    <cache></cache>
+    <select id="login" parameterType="String" resultType="String">
+        SELECT nickname FROM wechat_fans_bind AS a, wechat_fans_info AS b WHERE a.openid=b.openid AND phone=#{param1} AND password=#{param2} AND status=1
+    </select>
+
+    <select id="getLoginInfo" parameterType="String" resultType="entites.Login_Module.LoginInfo">
+        SELECT openid,b.phone,loginTime,status,loginIp,nickname FROM wechat_fans_bind AS a, wechat_fans_login_info AS b WHERE a.phone=b.phone AND b.phone=#{param1} ORDER BY loginTime DESC LIMIT 1 OFFSET 1
+    </select>
+
+    <insert id="updateLoginInfo" parameterType="String">
+        INSERT INTO wechat_fans_login_info(phone,nickname,loginTime,loginIp) VALUES(#{param1},#{param2},#{param3},#{param4})
+    </insert>
+
+    <insert id="signUp" parameterType="entites.Login_Module.SignUpInfo">
+        INSERT INTO  wechat_fans_info(subscribe,openid,nickname,sex,language,city,province,country,headimgurl,subscribe_time) values(#{subscribe},#{openid},#{nickname},#{sex},#{language},#{city},#{province},#{country},#{headimgurl},#{subscribe_time})
+    </insert>
+
+    <insert id="bind" parameterType="entites.Login_Module.SignUpInfo">
+        INSERT INTO  wechat_fans_bind(openid,phone,password,status) values(#{openid},#{phone},#{password},1)
+    </insert>
+
+    <update id="changePassword" parameterType="entites.Login_Module.ChangePassword">
+        UPDATE wechat_fans_bind SET password = #{newPassword} WHERE phone = #{phone} AND password = #{password}
+    </update>
+
+    <select id="check_phone" parameterType="String" resultType="int">
+        SELECT count(*) FROM wechat_fans_bind WHERE phone= #{phone} AND status = 1
+    </select>
+
+    <select id="check_nickname" parameterType="String" resultType="int">
+        SELECT count(*) FROM wechat_fans_info WHERE nickname= #{nickname}
+    </select>
+
+</mapper>
