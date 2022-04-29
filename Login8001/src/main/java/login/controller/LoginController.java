@@ -69,48 +69,28 @@ public class LoginController {
             return new CommonResult(-1,"login failed",null);
 
         CommonResult commonResult = new CommonResult();
-        String nickname = new String();
-        LoginInfo loginInfo = new LoginInfo();
-        // find record from Redis
-        List<Object> legalUsers = redisUtil.listRange("legalUsers",0,-1);
-        if(legalUsers!=null && legalUsers.size()!=0){
-            log.info("进入Redis缓存中查找数据");
-            for(Object o:legalUsers){
-                loginInfo = (LoginInfo) o;
-                System.out.println(loginInfo);
-                if(loginInfo.getStatus()==1 && phone.equals(loginInfo.getPhone()) && password.equals(loginInfo.getPassword())){
-                    log.info("在Redis缓存中找到数据");
-                    nickname = loginInfo.getNickname();
-                }
-            }
-        }else{
-            log.info("未在Redis缓存中找到数据");
-            nickname = loginService.login(phone,password);
-            System.out.println(phone+" "+password);
-            if(nickname==null){
-                log.info("未在数据库中找到数据");
-                commonResult.setCode(-1);
-                commonResult.setMessage("login failed");
-                commonResult.setData(null);
-                return commonResult;
-            }else{
-                log.info("在数据库中找到数据");
-                // 将数据库中查询到的数据插入Redis缓存中
-                loginInfo = loginService.getLoginInfo(phone);
-                loginInfo.setPassword(password);
-                redisUtil.leftPush("legalUsers",loginInfo); // add query results to redis
-            }
+
+        String nickname = loginService.login(phone,password);
+        System.out.println(phone+" "+password);
+        if(nickname==null){
+            log.info("未在数据库中找到数据");
+            commonResult.setCode(-1);
+            commonResult.setMessage("login failed");
+            commonResult.setData(null);
+            return commonResult;
         }
+        log.info("在数据库中找到数据");
         // 将登陆数据插入wechat_fans_login_info表中
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time_string = sdf.format(date);
         String ip = IpUtil.getIpAddress(request);
         loginService.updateLoginInfo(phone,nickname,time_string,ip);
-
-        String token = JwtUtil.sign(loginInfo.getNickname(),"user");
+        // 获取返回数据
         commonResult.setCode(0);
         commonResult.setMessage("login success");
+        LoginInfo loginInfo = loginService.getLoginInfo(phone);
+        String token = JwtUtil.sign(loginInfo.getNickname(),"user");
         Map<String,String> map = new HashMap<>();
         map.put("uid",loginInfo.getOpenid());
         map.put("token",token);
@@ -195,5 +175,10 @@ public class LoginController {
         }
         return commonResult;
     }
+
+//    @RequestMapping("/changeBindPhone")
+//    public CommonResult changeBindPhone(){
+//
+//    }
 
 }
