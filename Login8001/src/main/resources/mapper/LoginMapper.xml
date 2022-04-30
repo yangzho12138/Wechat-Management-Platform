@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="management.mapper.LoginMapper">
     <cache></cache>
-    <select id="management" parameterType="String" resultType="String">
+    <select id="login" parameterType="String" resultType="String">
         SELECT nickname FROM wechat_fans_bind AS a, wechat_fans_info AS b WHERE a.openid=b.openid AND phone=#{param1} AND password=#{param2} AND status=1
     </select>
 

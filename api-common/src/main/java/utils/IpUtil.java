@@ -1,4 +1,4 @@
-package management.utils;
+package utils;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;

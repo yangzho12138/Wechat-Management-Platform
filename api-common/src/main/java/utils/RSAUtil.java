@@ -1,4 +1,4 @@
-package management.utils;
+package utils;
 
 import org.apache.commons.codec.binary.Base64;
 

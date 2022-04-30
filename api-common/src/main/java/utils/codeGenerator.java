@@ -1,4 +1,4 @@
-package management.utils;
+package utils;
 
 public class codeGenerator {
     public static String getlinkNo() {

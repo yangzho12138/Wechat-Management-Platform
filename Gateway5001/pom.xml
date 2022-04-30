@@ -35,6 +35,12 @@
             <artifactId>api-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- sentinel提供的gataway适配器 -->
         <dependency>
@@ -45,6 +51,12 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.8.2</version>
+            <scope>compile</scope>
         </dependency>
         <!--包含了sleuth+zipkin-->
 <!--        <dependency>-->

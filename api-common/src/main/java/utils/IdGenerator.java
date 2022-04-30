@@ -1,4 +1,4 @@
-package management.utils;
+package utils;
 
 
 import java.net.NetworkInterface;

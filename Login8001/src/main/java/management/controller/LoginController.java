@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import entites.CommonResult;
 import entites.Login_Module.*;
 import management.service.LoginService;
-import management.utils.*;
+import management.utils.RedisUtil;
+import utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -133,6 +134,7 @@ public class LoginController {
         commonResult.setCode(0);
         commonResult.setMessage("login success");
         LoginInfo loginInfo = loginService.getLoginInfo(phone);
+        // 服务器端生成token
         String token = JwtUtil.sign(loginInfo.getNickname(),phone);
         // 将token放入redis
 
