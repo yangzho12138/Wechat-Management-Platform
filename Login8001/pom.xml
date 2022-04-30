@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Login</artifactId>
+    <artifactId>Login8001</artifactId>
 
     <dependencies>
         <!--SpringCloud openfeign -->

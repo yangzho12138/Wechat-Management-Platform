@@ -1,9 +1,11 @@
-package login.mapper;
+package management.mapper;
 
 import entites.Login_Module.ChangePassword;
 import entites.Login_Module.LoginInfo;
 import entites.Login_Module.SignUpInfo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface LoginMapper {
@@ -20,5 +22,7 @@ public interface LoginMapper {
 
     // change Password
     int changePassword(ChangePassword changePassword);
+    int changePasswordHistory(String password, String changeTime, String phone);
+    List<String> checkChangePassword(String phone);
 
 }

@@ -1,0 +1,20 @@
+server:
+  port: 5001
+
+spring:
+  application:
+    name: springcloud-gateway
+  cloud:
+    nacos:
+      config:
+        group: wechat
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:          # 路由数组[路由 就是指定当请求满足什么条件的时候转到哪个微服务]
+        - id: login_routh                 #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          uri: lb://nacos-login         #匹配后提供服务的路由地址
+          predicates:
+            - Path=/gateway/mp/internet/wechat/login        # 断言，路径相匹配的进行路由
+          filters:      # 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改
+            - StripPrefix=1 # 转发之前去掉1层路径

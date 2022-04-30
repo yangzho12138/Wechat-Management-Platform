@@ -9,6 +9,7 @@
     <modules>
         <module>Login8001</module>
         <module>api-common</module>
+        <module>Gateway5001</module>
     </modules>
     <packaging>pom</packaging>
     <name>management</name>

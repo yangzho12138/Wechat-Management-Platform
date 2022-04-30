@@ -1,12 +1,14 @@
-package login.service.Impl;
+package management.service.Impl;
 
 import entites.Login_Module.ChangePassword;
 import entites.Login_Module.LoginInfo;
 import entites.Login_Module.SignUpInfo;
-import login.mapper.LoginMapper;
-import login.service.LoginService;
+import management.mapper.LoginMapper;
+import management.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -50,6 +52,17 @@ public class LoginServiceImpl implements LoginService {
         if(count==0)
             return false;
         return true;
+    }
+
+    public boolean changePasswordHistory(String password, String changeTime, String phone){
+        int count = loginMapper.changePasswordHistory(password,changeTime,phone);
+        if(count==0)
+            return false;
+        return true;
+    }
+
+    public List<String> checkChangePassword(String phone){
+        return loginMapper.checkChangePassword(phone);
     }
 
     public boolean check_phone(String phone){

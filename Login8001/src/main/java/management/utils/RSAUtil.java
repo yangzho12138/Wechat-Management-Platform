@@ -1,7 +1,6 @@
-package login.utils;
+package management.utils;
 
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
@@ -183,7 +182,7 @@ public class RSAUtil {
             System.out.println("私钥:" + privateKey);
             System.out.println("公钥:" + publicKey);
             // RSA加密
-            String data = "123456";
+            String data = "15000945702";
             String encryptData = encrypt(data, getPublicKey());
             System.out.println("加密后内容:" + encryptData);
             // RSA解密

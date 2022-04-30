@@ -1,4 +1,4 @@
-package login.utils;
+package management.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

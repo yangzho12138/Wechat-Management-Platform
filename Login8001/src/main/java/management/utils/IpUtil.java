@@ -1,4 +1,4 @@
-package login.utils;
+package management.utils;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
