@@ -28,18 +28,18 @@ public class GroupingController {
     public CommonResult queryTagInfoList(@RequestBody String queryInfo){
         // 解析json
         JSONObject jsonObject = JSONObject.parseObject(queryInfo);
-        String page = jsonObject.getString("page");
-        String pageSize = jsonObject.getString("pageSize");
+        Integer page = Integer.parseInt(jsonObject.getString("page"));
+        Integer pageSize = Integer.parseInt(jsonObject.getString("pageSize"));
         if(page==null || pageSize==null)
             return new CommonResult(-1,"query failed due to parameter error",null);
 
         HashMap<String,Object> data = new HashMap<>();
         int ruleTag = groupingService.ruleTagNum();
         int localTag = groupingService.localTagNum();
-        int totalPage = (ruleTag+localTag)/Integer.parseInt(pageSize) + 1;
+        int totalPage = (ruleTag+localTag)/pageSize + 1;
         List<HashMap<String,Object>> tagList = new ArrayList<>();
 
-        List<GroupInfo> list = groupingService.tagList(page,pageSize);
+        List<GroupInfo> list = groupingService.tagList(pageSize,pageSize*(page-1));
         if(list!=null && list.size()!=0){
             for(Object o:list){
                 GroupInfo groupInfo = (GroupInfo) o;
@@ -68,7 +68,7 @@ public class GroupingController {
         JSONObject jsonObject = JSONObject.parseObject(newGroupInfo);
         String description = jsonObject.getString("description");
         String tagName = jsonObject.getString("tagName");
-        Integer tagId = Integer.parseInt(jsonObject.getString("tagID"));
+        Integer tagId = Integer.parseInt(jsonObject.getString("tagId"));
         Integer tagType = Integer.parseInt(jsonObject.getString("type"));
         // tagId,tagType,tagName必填，description选填
         if(tagName==null || tagId==null || tagType==null)
@@ -111,8 +111,8 @@ public class GroupingController {
         Integer tagType = Integer.parseInt(jsonObject.getString("type"));
 
         // 根据tagId,tagType 对description和tagName进行修改
-        // 动态更新，不填就是不变，description和tagName必须填至少一个
-        if(description==null && tagName==null || tagId==null || tagType==null)
+        // tagName为必填
+        if(tagName==null || tagId==null || tagType==null)
             return new CommonResult(-1,"update tag failed due to parameter error", null);
 
         boolean res = groupingService.updateGroup(description,tagName,tagId,tagType);
@@ -124,7 +124,7 @@ public class GroupingController {
     @RequestMapping("/ruleTagDetail")
     public CommonResult ruleTagDetail(@RequestBody String tag){
         JSONObject jsonObject = JSONObject.parseObject(tag);
-        String tagId = jsonObject.getString("tagId");
+        Integer tagId = Integer.parseInt(jsonObject.getString("tagId"));
 
         if(tagId == null)
             return new CommonResult(-1,"rule tag detail failed due to parameter error", null);

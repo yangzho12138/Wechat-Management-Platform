@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupInfo {
+public class GroupInfo implements Serializable {
     String dateCreated;
     int tagId;
     String createBy;

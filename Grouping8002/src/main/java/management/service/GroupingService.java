@@ -8,7 +8,7 @@ public interface GroupingService {
     // 分组信息查询
     int ruleTagNum();
     int localTagNum();
-    List<GroupInfo> tagList(String page, String pageSize);
+    List<GroupInfo> tagList(Integer pageSize, Integer records);
 
     boolean addGroup(GroupInfo groupInfo);
 
@@ -16,5 +16,5 @@ public interface GroupingService {
 
     boolean updateGroup(String description,String tagName, Integer tagId, Integer tagType);
 
-    GroupInfo tagDetail(String tagId);
+    GroupInfo tagDetail(Integer tagId);
 }

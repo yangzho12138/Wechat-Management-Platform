@@ -19,8 +19,8 @@ public class GroupingServiceImpl implements GroupingService {
     public int localTagNum(){
         return groupingMapper.localTagNum();
     }
-    public List<GroupInfo> tagList(String page,String pageSize){
-        return groupingMapper.tagList(page,pageSize);
+    public List<GroupInfo> tagList(Integer pageSize,Integer records){
+        return groupingMapper.tagList(pageSize,records);
     }
 
     public boolean addGroup(GroupInfo groupInfo){
@@ -44,7 +44,7 @@ public class GroupingServiceImpl implements GroupingService {
         return true;
     }
 
-    public GroupInfo tagDetail(String tagId){
+    public GroupInfo tagDetail(Integer tagId){
         return groupingMapper.tagDetail(tagId);
     }
 }

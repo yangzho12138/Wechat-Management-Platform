@@ -72,6 +72,8 @@ public class LoginController {
         JSONObject jsonObject = JSONObject.parseObject(picCode);
         String code = (String)jsonObject.get("picCode");
         String timestamp = (String)jsonObject.get("timestamp");
+        if(code==null || timestamp==null || code=="" || timestamp=="")
+            return new CommonResult(-1,"verify failed due to parameter error",null);
         System.out.println(code+" "+timestamp);
         String redis_time = redisUtil.get(code);
         if(redis_time!=null && redis_time.equals(timestamp)==true){
@@ -87,6 +89,8 @@ public class LoginController {
         // 字符串转json
         JSONObject jsonObject = JSONObject.parseObject(phone);
         phone = (String) jsonObject.get("phone");
+        if(phone==null || phone=="")
+            return new CommonResult(-1,"send code failed due to parameter error",null);
         phone = RSAUtil.decrypt(phone,RSAUtil.getPrivateKey());
         log.info(phone);
         HashMap<String,String> map = new HashMap<>();

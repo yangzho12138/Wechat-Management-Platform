@@ -11,8 +11,8 @@
         SELECT count(*) FROM wechat_group_info WHERE tagType=0
     </select>
 
-    <select id="tagList" resultType="entites.Group_Module.GroupInfo" parameterType="String">
-        SELECT * FROM wechat_group_info LIMIT #{pageSize} OFFSET #{pageSize}*#{page}
+    <select id="tagList" resultType="entites.Group_Module.GroupInfo" parameterType="Integer">
+        SELECT * FROM wechat_group_info LIMIT #{param1} OFFSET #{param2}
     </select>
 
     <insert id="addGroup" parameterType="entites.Group_Module.GroupInfo">
@@ -23,17 +23,8 @@
         DELETE FROM wechat_group_info WHERE tagId=#{tagId}
     </delete>
 
-    <update id="updateGroup" parameterType="String">
-        UPDATE wechat_group_info
-        <set>
-            <if test="description !=null and description !='' ">
-                description=#{description}
-            </if>
-            <if test="tagName !=null and tagName !='' ">
-                tagName=#{tagName}
-            </if>
-        </set>
-        WHERE tagId=#{tagId} AND tagType=#{tagType}
+    <update id="updateGroup">
+        UPDATE wechat_group_info SET description=#{param1},tagName=#{param2} WHERE tagId=#{param3} AND tagType=#{param4}
     </update>
 
     <select id="tagDetail" resultType="entites.Group_Module.GroupInfo" parameterType="Integer">
