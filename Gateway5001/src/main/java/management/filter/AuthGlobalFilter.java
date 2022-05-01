@@ -6,9 +6,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import utils.JwtUtil;
@@ -16,14 +14,13 @@ import utils.JwtUtil;
 @Component
 @Slf4j
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
-    // 匹配路径的工具类
-    private AntPathMatcher antPathMatcher =new AntPathMatcher();
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // 获取路径
         String path = exchange.getRequest().getURI().getPath();
         log.info(path);
-        if(path.contains("/login")){ // 对包含login的路径放行
+        if(path.contains("/login") || path.contains("Code") || path.contains("signUp")){ // 不需要登陆状态的路径
             return chain.filter(exchange);
         }
         String token = exchange.getRequest().getQueryParams().getFirst("token");

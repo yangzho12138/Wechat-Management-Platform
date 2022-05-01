@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="management.mapper.GroupingMapper">
+    <cache></cache>
+    <select id="ruleTagNum" resultType="Integer">
+        SELECT count(*) FROM wechat_group_info WHERE tagType=2
+    </select>
+
+    <select id="localTagNum" resultType="Integer">
+        SELECT count(*) FROM wechat_group_info WHERE tagType=0
+    </select>
+
+    <select id="tagList" resultType="entites.Group_Module.GroupInfo" parameterType="String">
+        SELECT * FROM wechat_group_info LIMIT #{pageSize} OFFSET #{pageSize}*#{page}
+    </select>
+
+    <insert id="addGroup" parameterType="entites.Group_Module.GroupInfo">
+        INSERT INTO wechat_group_info(dateCreated,tagId,createBy,tagType,description,fansCount,tagName) VALUES(#{dateCreated},#{tagId},#{createBy},#{tagType},#{description},#{fansCount},#{tagName})
+    </insert>
+
+    <delete id="deleteGroup" parameterType="String">
+        DELETE FROM wechat_group_info WHERE tagId=#{tagId}
+    </delete>
+
+    <update id="updateGroup" parameterType="String">
+        UPDATE wechat_group_info
+        <set>
+            <if test="description !=null and description !='' ">
+                description=#{description}
+            </if>
+            <if test="tagName !=null and tagName !='' ">
+                tagName=#{tagName}
+            </if>
+        </set>
+        WHERE tagId=#{tagId} AND tagType=#{tagType}
+    </update>
+
+    <select id="tagDetail" resultType="entites.Group_Module.GroupInfo" parameterType="Integer">
+        SELECT * FROM wechat_group_info WHERE tagId=#{tagId}
+    </select>
+
+</mapper>

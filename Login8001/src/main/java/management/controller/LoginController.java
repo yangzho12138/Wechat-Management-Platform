@@ -135,8 +135,7 @@ public class LoginController {
         commonResult.setMessage("login success");
         LoginInfo loginInfo = loginService.getLoginInfo(phone);
         // 服务器端生成token
-        String token = JwtUtil.sign(loginInfo.getNickname(),phone);
-        // 将token放入redis
+        String token = JwtUtil.sign(loginInfo.getNickname(),ip);
 
         Map<String,String> map = new HashMap<>();
         map.put("uid",loginInfo.getOpenid());

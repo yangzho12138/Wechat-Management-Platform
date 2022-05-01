@@ -3,6 +3,8 @@ package utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
@@ -70,4 +72,15 @@ public class JwtUtil {
             return false;
         }
     }
+
+    public static String getUserName(String token){
+        try{
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("userName").asString();
+        }catch (JWTDecodeException e){
+            log.info(e.toString());
+            return null;
+        }
+    }
+
 }
