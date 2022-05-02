@@ -81,7 +81,7 @@ public class GroupingController {
         String token = request.getParameter("token");
         String createBy = JwtUtil.getUserName(token);
 
-        GroupInfo groupInfo = new GroupInfo(time_string,tagId,createBy,tagType,description,0,tagName);
+        GroupInfo groupInfo = new GroupInfo(time_string,tagId,createBy,tagType,description,0,tagName,null);
         boolean res = groupingService.addGroup(groupInfo);
         if(res==false)
             return new CommonResult(-1,"add tag failed", null);
@@ -139,6 +139,8 @@ public class GroupingController {
         data.put("tagId",groupInfo.getTagId());
         data.put("type",groupInfo.getTagType());
         data.put("fansCount",groupInfo.getFansCount());
+        data.put("rule",groupInfo.getRule());
         return new CommonResult(0,"rule tag detail succeed",data);
     }
+
 }

@@ -165,6 +165,7 @@ public class LoginController {
         signUpInfo.setOpenid(openId);
         System.out.println(signUpInfo);
         // decrypt the phone
+        // 手机号为空表示未绑定手机
         String phone = RSAUtil.decrypt(signUpInfo.getPhone(),RSAUtil.getPrivateKey());
         signUpInfo.setPhone(phone);
         // encrypt the password

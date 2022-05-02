@@ -27,5 +27,6 @@ public class User {
     String unionid;
     String remark;
     Integer groupid;
+    String tagid_list;
     String subscribe_scene;
 }

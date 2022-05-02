@@ -16,7 +16,7 @@
     </select>
 
     <insert id="addGroup" parameterType="entites.Group_Module.GroupInfo">
-        INSERT INTO wechat_group_info(dateCreated,tagId,createBy,tagType,description,fansCount,tagName) VALUES(#{dateCreated},#{tagId},#{createBy},#{tagType},#{description},#{fansCount},#{tagName})
+        INSERT INTO wechat_group_info(dateCreated,tagId,createBy,tagType,description,fansCount,tagName,rule) VALUES(#{dateCreated},#{tagId},#{createBy},#{tagType},#{description},#{fansCount},#{tagName},#{rule})
     </insert>
 
     <delete id="deleteGroup" parameterType="String">

@@ -11,6 +11,7 @@
         <module>api-common</module>
         <module>Gateway5001</module>
         <module>Grouping8002</module>
+        <module>Fans8003</module>
     </modules>
     <packaging>pom</packaging>
     <name>management</name>

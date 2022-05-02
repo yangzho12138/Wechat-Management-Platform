@@ -19,4 +19,5 @@ public class GroupInfo implements Serializable {
     String description;
     int fansCount;
     String tagName;
+    String rule;
 }

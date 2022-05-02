@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="management.mapper.FansMapper">
+    <cache></cache>
+    <select id="queryFansInfo" resultType="String">
+        SELECT w1.openid FROM wechat_fans_info AS w1, wechat_fans_bind AS w2 WHERE w1.openid=w2.openid
+        <where>
+            <if test="sex !=null">
+                and w1.sex=#{param1}
+            </if>
+            <if test="subscribeScene !=null and subscribeScene !=''">
+                and w1.subscribeScene=#{param2}
+            </if>
+            <if test="subscribeTimeEnd !=null and subscribeTimeEnd!=''">
+                and w1.subscribe_time lt= #{param3}
+            </if>
+            <if test="subscribeTimeStart !=null and subscribeTimeStart!=''">
+                and w1.subscribe_time >= #{param4}
+            </if>
+            <if test="bindStatus==0">
+                and w2.phone==null
+            </if>
+            <if test="bindStatus==1">
+                and w2.phone!=null
+            </if>
+        </where>
+    </select>
+
+    <insert id="updateGroupInfo" parameterType="entites.Group_Module.GroupInfo">
+        INSERT INTO wechat_group_info()(dateCreated,tagId,createBy,tagType,description,fansCount,tagName,rule) VALUES(#{dateCreated},#{tagId},#{createBy},#{tagType},#{description},#{fansCount},#{tagName},#{rule})
+    </insert>
+
+    <update id="updateTagIdList" parameterType="List">
+        UPDATE wechat_fans_info SET tagid_list=tagid_list+#{param2},groupid=2 WHERE openid IN
+        <foreach item="openid" index="index" collection="openid" open="(" separator="," close=")">
+            #{openid}
+        </foreach>
+    </update>
+
+</mapper>
