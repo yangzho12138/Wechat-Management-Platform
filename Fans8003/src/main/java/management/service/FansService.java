@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FansService {
 
-    List<String> queryFansInfo(Integer sex, String subscribeScene, String subscribeTimeEnd, String subscribeTimeStart, Integer bindStatus);
+    List<String> queryFansInfo(Integer sex, String subscribeScene, String subscribeTimeEnd, String subscribeTimeStart, String bindStatus);
 
     boolean tagBindRule(GroupInfo groupInfo, List<String> openid, int size);
 }

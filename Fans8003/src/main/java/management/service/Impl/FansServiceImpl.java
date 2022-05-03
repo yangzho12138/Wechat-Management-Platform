@@ -15,7 +15,7 @@ public class FansServiceImpl implements FansService {
     @Autowired
     FansMapper fansMapper;
 
-    public List<String> queryFansInfo(Integer sex, String subscribeScene, String subscribeTimeEnd, String subscribeTimeStart, Integer bindStatus) {
+    public List<String> queryFansInfo(Integer sex, String subscribeScene, String subscribeTimeEnd, String subscribeTimeStart, String bindStatus) {
         return fansMapper.queryFansInfo(sex,subscribeScene,subscribeTimeEnd,subscribeTimeStart,bindStatus);
     }
 

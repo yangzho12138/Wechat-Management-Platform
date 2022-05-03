@@ -103,9 +103,10 @@ public class FansController {
         String subscribeScene = jsonObject.getString("subscribeScene");
         String subscribeTimeEnd = jsonObject.getString("subscribeTimeEnd");
         String subscribeTimeStart = jsonObject.getString("subscribeTimeStart");
-        Integer bindStatus = Integer.parseInt(jsonObject.getString("bindStatus"));
-
+        String bindStatus = jsonObject.getString("bindStatus");
+        log.info(sex+" "+subscribeScene+" "+subscribeTimeEnd+" "+subscribeTimeStart+" "+bindStatus);
         List<String> users_openid = fansService.queryFansInfo(sex, subscribeScene, subscribeTimeEnd, subscribeTimeStart, bindStatus);
+        log.info(users_openid.toString());
         HashMap<String, Object> data = new HashMap<>();
         data.put("fansCount", users_openid.size());
         return new CommonResult(0, "success", data);
@@ -124,7 +125,7 @@ public class FansController {
         String subscribeScene = jsonObject1.getString("subscribeScene");
         String subscribeTimeEnd = jsonObject1.getString("subscribeTimeEnd");
         String subscribeTimeStart = jsonObject1.getString("subscribeTimeStart");
-        Integer bindStatus = Integer.parseInt(jsonObject1.getString("bindStatus"));
+        String bindStatus = jsonObject1.getString("bindStatus");
         List<String> users_openid = fansService.queryFansInfo(sex, subscribeScene, subscribeTimeEnd, subscribeTimeStart, bindStatus);
         log.info(users_openid.toString());
 

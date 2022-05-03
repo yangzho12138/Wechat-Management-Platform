@@ -4,37 +4,38 @@
 <mapper namespace="management.mapper.FansMapper">
     <cache></cache>
     <select id="queryFansInfo" resultType="String">
-        SELECT w1.openid FROM wechat_fans_info AS w1, wechat_fans_bind AS w2 WHERE w1.openid=w2.openid
+        SELECT w1.openid FROM wechat_fans_info AS w1, wechat_fans_bind AS w2
         <where>
-            <if test="sex !=null">
+            <if test="param1 !=null">
                 and w1.sex=#{param1}
             </if>
-            <if test="subscribeScene !=null and subscribeScene !=''">
-                and w1.subscribeScene=#{param2}
+            <if test="param2 !=null and param2 !=''">
+                and w1.subscribe_scene=#{param2}
             </if>
-            <if test="subscribeTimeEnd !=null and subscribeTimeEnd!=''">
-                and w1.subscribe_time lt= #{param3}
+            <if test="param3 !=null and param3 !=''">
+                and w1.subscribe_time &lt;= #{param3}
             </if>
-            <if test="subscribeTimeStart !=null and subscribeTimeStart!=''">
+            <if test="param4 !=null and param4 !=''">
                 and w1.subscribe_time >= #{param4}
             </if>
-            <if test="bindStatus==0">
-                and w2.phone==null
+            <if test="param5 == 0">
+                and w2.phone=''
             </if>
-            <if test="bindStatus==1">
-                and w2.phone!=null
+            <if test="param5 == 1">
+                and w2.phone !=''
             </if>
         </where>
+        AND w1.openid=w2.openid
     </select>
 
     <insert id="updateGroupInfo" parameterType="entites.Group_Module.GroupInfo">
-        INSERT INTO wechat_group_info()(dateCreated,tagId,createBy,tagType,description,fansCount,tagName,rule) VALUES(#{dateCreated},#{tagId},#{createBy},#{tagType},#{description},#{fansCount},#{tagName},#{rule})
+        INSERT INTO wechat_group_info(dateCreated,tagId,createBy,tagType,description,fansCount,tagName,rule) VALUES(#{dateCreated},#{tagId},#{createBy},#{tagType},#{description},#{fansCount},#{tagName},#{rule})
     </insert>
 
     <update id="updateTagIdList" parameterType="List">
-        UPDATE wechat_fans_info SET tagid_list=tagid_list+#{param2},groupid=2 WHERE openid IN
-        <foreach item="openid" index="index" collection="openid" open="(" separator="," close=")">
-            #{openid}
+        UPDATE wechat_fans_info SET tagid_list=CONCAT(tagid_list,#{param2},",") WHERE openid IN
+        <foreach item="param1" index="index" collection="param1" open="(" separator="," close=")">
+            #{param1}
         </foreach>
     </update>
 
