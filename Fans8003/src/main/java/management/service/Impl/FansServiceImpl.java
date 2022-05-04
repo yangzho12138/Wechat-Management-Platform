@@ -1,7 +1,6 @@
 package management.service.Impl;
 
 import entites.Group_Module.GroupInfo;
-import entites.User;
 import management.mapper.FansMapper;
 import management.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package management.service;
 
 import entites.Group_Module.GroupInfo;
-import entites.User;
 
 import java.util.List;
 

@@ -13,6 +13,8 @@
         <module>Grouping8002</module>
         <module>Fans8003</module>
         <module>Template8005</module>
+        <module>Push8004</module>
+        <module>Task8006</module>
     </modules>
     <packaging>pom</packaging>
     <name>management</name>

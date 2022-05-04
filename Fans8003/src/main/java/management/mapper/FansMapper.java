@@ -1,7 +1,6 @@
 package management.mapper;
 
 import entites.Group_Module.GroupInfo;
-import entites.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

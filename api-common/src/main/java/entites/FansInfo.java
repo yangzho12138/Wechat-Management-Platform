@@ -13,7 +13,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class FansInfo {
     int subscribe = 0;
     String openid;
     String nickname;
