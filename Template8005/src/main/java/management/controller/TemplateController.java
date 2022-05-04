@@ -39,7 +39,9 @@ public class TemplateController {
             return new CommonResult(-1,"failed",null);
 
         long totalTemplate = res.getTotal();
-        long totalPage = totalTemplate/pageSize+1;
+        long totalPage = totalTemplate/pageSize;
+        if(totalTemplate%pageSize!=0)
+            totalPage = totalPage+1;
         List<TemplateInfo> list = res.getRecords();
         HashMap<String,Object> data = new HashMap<>();
         data.put("totalTemplate",totalTemplate);

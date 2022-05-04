@@ -36,7 +36,9 @@ public class GroupingController {
         HashMap<String,Object> data = new HashMap<>();
         int ruleTag = groupingService.ruleTagNum();
         int localTag = groupingService.localTagNum();
-        int totalPage = (ruleTag+localTag)/pageSize + 1;
+        int totalPage = (ruleTag+localTag)/pageSize;
+        if((ruleTag+localTag)%pageSize!=0)
+            totalPage = totalPage + 1;
         List<HashMap<String,Object>> tagList = new ArrayList<>();
 
         List<GroupInfo> list = groupingService.tagList(pageSize,pageSize*(page-1));
