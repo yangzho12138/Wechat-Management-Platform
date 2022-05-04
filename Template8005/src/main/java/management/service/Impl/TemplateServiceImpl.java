@@ -16,7 +16,7 @@ public class TemplateServiceImpl implements TemplateService {
     TemplateMapper templateMapper;
 
     // mybatis-plus分页查询
-    public IPage<TemplateInfo> templateList(String templateType,String templateName,String templateId, Integer page, Integer pageSize) {
+    public IPage<TemplateInfo> templateList(String templateType,String templateName,String templateId, String createBy, Integer page, Integer pageSize) {
         IPage<TemplateInfo> pagelimit = new Page<>(page,pageSize);
         QueryWrapper<TemplateInfo> qw = new QueryWrapper<>();
         // 实现动态查询
@@ -26,6 +26,8 @@ public class TemplateServiceImpl implements TemplateService {
             qw.eq("templateName",templateName);
         if(templateId!=null && templateId.equals("")==false)
             qw.eq("templateId",templateId);
+        if(createBy!=null && createBy.equals("")==false)
+            qw.eq("createBy",createBy);
         IPage<TemplateInfo> infoIPage = templateMapper.selectPage(pagelimit,qw);
         return infoIPage;
     }

@@ -16,4 +16,5 @@ public class TemplateInfo {
     String templateName;
     String templateParams;
     String wxTemplateId;
+    String createBy;
 }

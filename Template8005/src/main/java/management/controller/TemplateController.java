@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import utils.JwtUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,14 +29,11 @@ public class TemplateController {
         String templateType = jsonObject.getString("templateType");
         String templateName = jsonObject.getString("templateName");
         String templateId = jsonObject.getString("templateId");
+        String createBy = jsonObject.getString("createBy");
         Integer page = Integer.parseInt(jsonObject.getString("page"));
         Integer pageSize = Integer.parseInt(jsonObject.getString("pageSize"));
 
-        System.out.println("------------------");
-        System.out.println(templateType+" "+templateName+" "+templateId+" "+page+" "+pageSize);
-        System.out.println("------------------");
-
-        IPage<TemplateInfo> res = templateService.templateList(templateType,templateName,templateId,page,pageSize);
+        IPage<TemplateInfo> res = templateService.templateList(templateType,templateName,templateId,createBy,page,pageSize);
         if(res==null)
             return new CommonResult(-1,"failed",null);
 
@@ -52,6 +51,7 @@ public class TemplateController {
             map.put("templateType",t.getTemplateType());
             map.put("templateName",t.getTemplateName());
             map.put("templateId",t.getTemplateId());
+            map.put("createBy",t.getCreateBy());
             templateList.add(map);
         }
         data.put("templateList",templateList);
@@ -60,9 +60,12 @@ public class TemplateController {
     }
 
     @RequestMapping("/add")
-    public CommonResult add(@RequestBody TemplateInfo templateInfo){
+    public CommonResult add(@RequestBody TemplateInfo templateInfo, HttpServletRequest request){
         if(templateInfo==null)
             return new CommonResult(-1,"add template failed due to parameter error",null);
+        String token = request.getParameter("token");
+        String createBy = JwtUtil.getUserName(token);
+        templateInfo.setCreateBy(createBy);
         boolean res = templateService.newTemplate(templateInfo);
         if(res==false)
             return new CommonResult(-1,"add template failed",null);
