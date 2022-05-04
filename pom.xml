@@ -12,10 +12,7 @@
         <module>Gateway5001</module>
         <module>Grouping8002</module>
         <module>Fans8003</module>
-<<<<<<< HEAD
-=======
         <module>Template8005</module>
->>>>>>> Template version 1
     </modules>
     <packaging>pom</packaging>
     <name>management</name>

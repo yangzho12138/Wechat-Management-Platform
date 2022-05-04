@@ -1,12 +1,11 @@
 package management.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import entites.Template_Module.TemplateInfo;
 
-import java.util.List;
 
 public interface TemplateService {
-    int templateNum();
-    List<TemplateInfo> templateList(Integer pageSize, Integer records);
+    IPage<TemplateInfo> templateList(String templateType,String templateName,String templateId, Integer page, Integer pageSize);
 
     boolean newTemplate(TemplateInfo templateInfo);
 }
