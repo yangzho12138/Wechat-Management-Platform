@@ -24,7 +24,6 @@ public class FansInfo {
     String language;
     String headimgurl;
     Date subscribe_time;
-    String unionid;
     String remark;
     Integer groupid;
     String tagid_list;

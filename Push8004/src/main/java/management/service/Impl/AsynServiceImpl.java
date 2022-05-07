@@ -14,6 +14,11 @@ import java.util.concurrent.Future;
 public class AsynServiceImpl implements AsynService {
     public Future<String> sendMsg(List<String> openidList, String templateId){
         SendMessageUtil.sendMessageToWeChat(openidList,templateId);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new AsyncResult<>("sendMsg执行结束");
     }
 }

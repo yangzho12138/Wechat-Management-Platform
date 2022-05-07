@@ -72,6 +72,7 @@ public class PushServiceImpl implements PushService {
         return openid;
     }
 
+
     public boolean pushTasks(List<String> openidList, String templateId, HttpServletRequest request){
         Date date_begin = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -93,6 +94,9 @@ public class PushServiceImpl implements PushService {
         TaskInfo taskInfo = new TaskInfo(IdGenerator.get(),creator,taskStatus,time_string_begin,time_string_end);
         Message msg = MessageBuilder.withPayload(JSON.toJSONString(taskInfo)).build();
         SendResult sendResult = rocketMQTemplate.syncSend("wechat_task",msg,5000);
+        // 信息发送后，一直检测未完成的任务是否完成，若完成则发消息更新任务状态
+        
+
         log.info("sendResult"+sendResult);
         if(sendResult!=null)
             return true;
