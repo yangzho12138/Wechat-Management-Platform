@@ -28,7 +28,7 @@ public class PushController {
         boolean lock = redisUtil.lock("sendTemplateMsg","1",1000*60*5);
         if(lock==false)
             return new CommonResult(-1,"the api is called in the last 5 min",null);
-        JSONObject jsonObject = JSONObject.parseObject("info");
+        JSONObject jsonObject = JSONObject.parseObject(info);
         String tagId = jsonObject.getString("tagId");
         String templateId = jsonObject.getString("templateId");
         if(tagId==null || templateId==null)

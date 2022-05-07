@@ -21,7 +21,7 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-    @RequestMapping("getTaskList")
+    @RequestMapping("/getTaskList")
     public CommonResult getTaskList(@RequestBody String info){
         JSONObject jsonObject = JSONObject.parseObject(info);
         String creator = jsonObject.getString("creator");
@@ -54,5 +54,11 @@ public class TaskController {
         }
         data.put("taskList",taskList);
         return new CommonResult(0,"success",data);
+    }
+
+    @RequestMapping("/updateStatus")
+    // feign想要传参成功，调用的接口和被调用的controller的参数表一定要有@RequestBody
+    public boolean updateStatus(@RequestBody TaskInfo taskInfo){
+        return taskService.updateStatus(taskInfo);
     }
 }

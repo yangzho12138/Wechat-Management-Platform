@@ -25,4 +25,16 @@ public class TaskServiceImpl implements TaskService {
         return taskInfo;
     }
 
+    public boolean updateStatus(TaskInfo taskInfo){
+        System.out.println("成功调用feign "+taskInfo.toString());
+        String taskId = taskInfo.getTaskId();
+        QueryWrapper<TaskInfo> qw = new QueryWrapper<>();
+        if(taskId!=null && taskId.equals("")==false)
+            qw.eq("taskId",taskId);
+        int count = taskMapper.update(taskInfo,qw);
+        if(count==0)
+            return false;
+        return true;
+    }
+
 }

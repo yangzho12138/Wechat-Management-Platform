@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import management.mapper.PushMapper;
 import management.service.AsynService;
 import management.service.PushService;
+import management.service.PushUpdateService;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.TransactionSendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -37,6 +38,9 @@ public class PushServiceImpl implements PushService {
 
     @Autowired
     RocketMQTemplate rocketMQTemplate;
+
+    @Autowired
+    PushUpdateService pushUpdateService;
 
     public List<String> targetFans(String tagId){
         QueryWrapper<FansInfo> qw = new QueryWrapper<>();
@@ -94,10 +98,20 @@ public class PushServiceImpl implements PushService {
         TaskInfo taskInfo = new TaskInfo(IdGenerator.get(),creator,taskStatus,time_string_begin,time_string_end);
         Message msg = MessageBuilder.withPayload(JSON.toJSONString(taskInfo)).build();
         SendResult sendResult = rocketMQTemplate.syncSend("wechat_task",msg,5000);
+        log.info("sendResult: "+sendResult);
         // 信息发送后，一直检测未完成的任务是否完成，若完成则发消息更新任务状态
-        
-
-        log.info("sendResult"+sendResult);
+        if(taskStatus.equals("未完成")){
+            while(future.isDone()==false){
+                log.info("任务还未完成");
+            }
+            log.info("任务已完成");
+            Date date_end = new Date();
+            time_string_end = sdf.format(date_end);
+            taskInfo.setFinishTime(time_string_end);
+            taskInfo.setTaskStatus("已完成");
+            // 一个jvm程序只能有一个生产者/消费者实例
+            pushUpdateService.updateStatus(taskInfo);
+        }
         if(sendResult!=null)
             return true;
         return false;

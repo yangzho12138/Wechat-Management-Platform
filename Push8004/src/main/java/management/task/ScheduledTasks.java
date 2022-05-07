@@ -18,7 +18,7 @@ public class ScheduledTasks {
     PushService pushService;
 
     // 定时推送
-    // pushTasks只是将任务信息推送给Task8006模块，将数据加入数据库是在Task8006模块中的任务，因此不能用@Transactional注解来实现事务
+    // pushTasks只是将任务信息推送给Task8006模块，将数据加入数据库是在Task8006模块中的任务
     @Scheduled(fixedRate = 1000*60*30) // 每半小时发送一次
     @Retryable
     public void sendAtTime(){
