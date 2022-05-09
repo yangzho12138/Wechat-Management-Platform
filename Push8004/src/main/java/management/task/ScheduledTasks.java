@@ -25,6 +25,6 @@ public class ScheduledTasks {
         log.info("定时任务开始执行");
         String templateId = "WX_PH_WZ_20200819005050299";
         List<String> openid = pushService.newFans();
-        boolean res = pushService.pushTasks(openid,templateId,null);
+        pushService.pushTasks(openid,templateId,null);
     }
 }

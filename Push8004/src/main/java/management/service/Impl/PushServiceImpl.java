@@ -100,17 +100,9 @@ public class PushServiceImpl implements PushService {
         SendResult sendResult = rocketMQTemplate.syncSend("wechat_task",msg,5000);
         log.info("sendResult: "+sendResult);
         // 信息发送后，一直检测未完成的任务是否完成，若完成则发消息更新任务状态
+        // 用异步方法完成
         if(taskStatus.equals("未完成")){
-            while(future.isDone()==false){
-                log.info("任务还未完成");
-            }
-            log.info("任务已完成");
-            Date date_end = new Date();
-            time_string_end = sdf.format(date_end);
-            taskInfo.setFinishTime(time_string_end);
-            taskInfo.setTaskStatus("已完成");
-            // 一个jvm程序只能有一个生产者/消费者实例
-            pushUpdateService.updateStatus(taskInfo);
+            asynService.updateStatus(future,taskInfo);
         }
         if(sendResult!=null)
             return true;
