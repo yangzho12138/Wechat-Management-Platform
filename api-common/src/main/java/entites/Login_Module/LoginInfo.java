@@ -13,11 +13,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginInfo implements Serializable {
-    String openid;
-    String phone;
-    String loginTime;
-    int status;
-    String loginIp;
-    String nickname;
-    String password;
+    private String openid;
+    private String phone;
+    private String loginTime;
+    private int status;
+    private String loginIp;
+    private String nickname;
+    private String password;
 }

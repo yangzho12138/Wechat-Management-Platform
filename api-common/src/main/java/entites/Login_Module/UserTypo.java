@@ -11,9 +11,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserTypo {
-    String phone;
-    String password;
-    String code;
-    String timestamp;
-    String picCode;
+    private String phone;
+    private String password;
+    private String code;
+    private String timestamp;
+    private String picCode;
 }

@@ -13,16 +13,16 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignUpInfo {
-    int subscribe = 1;
-    String openid;
-    String nickname;
-    Integer sex;
-    String language = "zh_CN";
-    String city;
-    String province;
-    String country;
-    String headimgurl;
-    String subscribe_time;
-    String phone;
-    String password;
+    private int subscribe = 1;
+    private String openid;
+    private String nickname;
+    private Integer sex;
+    private String language = "zh_CN";
+    private String city;
+    private String province;
+    private String country;
+    private String headimgurl;
+    private String subscribe_time;
+    private String phone;
+    private String password;
 }

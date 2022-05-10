@@ -10,9 +10,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskInfo {
-    String taskId;
-    String creator;
-    String taskStatus;
-    String createTime;
-    String finishTime;
+    private String taskId;
+    private String creator;
+    private String taskStatus;
+    private String createTime;
+    private String finishTime;
 }

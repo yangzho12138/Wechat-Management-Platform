@@ -14,18 +14,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FansInfo {
-    int subscribe = 0;
-    String openid;
-    String nickname;
-    int sex;
-    String city;
-    String country;
-    String province;
-    String language;
-    String headimgurl;
-    Date subscribe_time;
-    String remark;
-    Integer groupid;
-    String tagid_list;
-    String subscribe_scene;
+    private int subscribe = 0;
+    private String openid;
+    private String nickname;
+    private int sex;
+    private String city;
+    private String country;
+    private String province;
+    private String language;
+    private String headimgurl;
+    private Date subscribe_time;
+    private String remark;
+    private Integer groupid;
+    private String tagid_list;
+    private String subscribe_scene;
 }

@@ -12,12 +12,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupInfo implements Serializable {
-    String dateCreated;
-    int tagId;
-    String createBy;
-    int tagType;
-    String description;
-    int fansCount;
-    String tagName;
-    String rule;
+    private String dateCreated;
+    private int tagId;
+    private String createBy;
+    private int tagType;
+    private String description;
+    private int fansCount;
+    private String tagName;
+    private String rule;
 }

@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChangePassword {
-    String phone;
-    String password;
-    String newPassword;
+    private String phone;
+    private String password;
+    private String newPassword;
 }

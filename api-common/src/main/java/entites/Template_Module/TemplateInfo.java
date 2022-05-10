@@ -10,11 +10,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TemplateInfo {
-    String templateType;
-    String templateId;
-    String templateContent;
-    String templateName;
-    String templateParams;
-    String wxTemplateId;
-    String createBy;
+    private String templateType;
+    private String templateId;
+    private String templateContent;
+    private String templateName;
+    private String templateParams;
+    private String wxTemplateId;
+    private String createBy;
 }
